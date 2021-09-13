@@ -131,6 +131,7 @@ public class GameView extends SurfaceView implements Runnable{
 
                 strongLoader = new StrongLoader(getContext()); // добавляем погрузчик
                 weakLoader = new WeakLoader(getContext()); // добавляем грузчика
+                addBox();
             }
 
             canvas = surfaceHolder.lockCanvas(); // закрываем canvas
@@ -164,21 +165,23 @@ public class GameView extends SurfaceView implements Runnable{
     }
 
 
+    private void addBox(){
+        for (int i=0; i<10; i++) {
+
+            BoxMiddle boxMiddle = new BoxMiddle(getContext());
+            boxMiddles.add(boxMiddle);
+
+            BoxLittle boxLittle = new BoxLittle(getContext());
+            boxLittles.add(boxLittle);
+
+            BoxBig boxBig = new BoxBig(getContext());
+            boxBigs.add(boxBig);
+        }
+    }
+
     private void checkIfNewAsteroid(){ // каждые ASTEROID_INTERVAL итераций добавляем новые коробки по 10 шт.
         if(currentTime >= ASTEROID_INTERVAL){
-            Log.d("Прошло 10 секунд",(" "));
-            for (int i=0; i<10; i++) {
-
-                BoxMiddle boxMiddle = new BoxMiddle(getContext());
-                boxMiddles.add(boxMiddle);
-
-                BoxLittle boxLittle = new BoxLittle(getContext());
-                boxLittles.add(boxLittle);
-
-                BoxBig boxBig = new BoxBig(getContext());
-                boxBigs.add(boxBig);
-            }
-
+            addBox();
             currentTime = 0;
         }else{
             currentTime ++;
